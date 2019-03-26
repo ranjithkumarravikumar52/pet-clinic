@@ -47,6 +47,7 @@
 		<developerConnection>
 			scm:git:git@github.com:ranjithkumarravikumar52/pet-clinic.git
 		</developerConnection>
+		<url>https://github.com/ranjithkumarravikumar52/pet-clinic</url>
 		<tag>HEAD</tag>
 	</scm>
 
