@@ -17,7 +17,7 @@
 
 	<groupId>com.ranjithkumarravikumar</groupId>
 	<artifactId>pet-clinic</artifactId>
-	<version>0.0.1</version>
+	<version>0.0.2-SNAPSHOT</version>
 	<name>pet-clinic</name>
 	<description>Pet clinic spring boot app</description>
 
@@ -46,7 +46,7 @@
 	<scm>
 		<developerConnection>scm:git:https://github.com/ranjithkumarravikumar52/pet-clinic.git</developerConnection>
 		<url>https://github.com/ranjithkumarravikumar52/pet-clinic</url>
-		<tag>pet-clinic-0.0.1</tag>
+		<tag>HEAD</tag>
 	</scm>
 
 </project>
