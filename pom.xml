@@ -43,4 +43,11 @@
 		</plugins>
 	</build>
 
+	<scm>
+		<developerConnection>
+			scm:git:git@github.com:ranjithkumarravikumar52/pet-clinic.git
+		</developerConnection>
+		<tag>HEAD</tag>
+	</scm>
+
 </project>
