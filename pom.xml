@@ -24,6 +24,7 @@
 
 	<properties>
 		<java.version>1.8</java.version>
+		<project.scm.id>github</project.scm.id>
 	</properties>
 
 	<build>
@@ -44,9 +45,7 @@
 	</build>
 
 	<scm>
-		<developerConnection>
-			scm:git:git@github.com:ranjithkumarravikumar52/pet-clinic.git
-		</developerConnection>
+		<developerConnection>scm:git:https://github.com/ranjithkumarravikumar52/pet-clinic.git</developerConnection>
 		<url>https://github.com/ranjithkumarravikumar52/pet-clinic</url>
 		<tag>HEAD</tag>
 	</scm>
