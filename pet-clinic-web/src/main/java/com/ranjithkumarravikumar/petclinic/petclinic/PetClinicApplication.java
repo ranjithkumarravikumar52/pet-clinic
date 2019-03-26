@@ -1,4 +1,4 @@
-package com.ranjithkumarravikumar.petclinic;
+package com.ranjithkumarravikumar.petclinic.petclinic;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
