@@ -4,8 +4,7 @@ import com.ranjithkumarravikumar.petclinic.model.Owner;
 import com.ranjithkumarravikumar.petclinic.model.Vet;
 import com.ranjithkumarravikumar.petclinic.services.OwnerService;
 import com.ranjithkumarravikumar.petclinic.services.VetService;
-import com.ranjithkumarravikumar.petclinic.services.map.OwnerServiceMapImpl;
-import com.ranjithkumarravikumar.petclinic.services.map.VetServiceMapImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -20,10 +19,10 @@ public class DataLoader implements CommandLineRunner {
 	private final OwnerService ownerService;
 	private final VetService vetService;
 
-	//TODO spring DI here
-	public DataLoader(){
-		ownerService = new OwnerServiceMapImpl();
-		vetService = new VetServiceMapImpl();
+	@Autowired //optional
+	public DataLoader(OwnerService ownerService, VetService vetService) {
+		this.ownerService = ownerService;
+		this.vetService = vetService;
 	}
 
 	@Override
