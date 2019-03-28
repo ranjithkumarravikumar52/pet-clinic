@@ -1,25 +1,27 @@
 package com.ranjithkumarravikumar.petclinic.services.map;
 
-import com.ranjithkumarravikumar.petclinic.model.Speciality;
+import com.ranjithkumarravikumar.petclinic.model.Specialty;
 import com.ranjithkumarravikumar.petclinic.services.SpecialtyService;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
 
 @Service //DONT FORGET TO ADD SERVICE ANNOTATION
-public class SpecialityMapServiceImpl extends AbstractMapService<Speciality, Long> implements SpecialtyService {
+@Profile({"default", "map"})
+public class SpecialityMapServiceImpl extends AbstractMapService<Specialty, Long> implements SpecialtyService {
 	@Override
-	public Speciality findById(Long id) {
+	public Specialty findById(Long id) {
 		return super.findById(id);
 	}
 
 	@Override
-	public Speciality save(Speciality object) {
+	public Specialty save(Specialty object) {
 		return super.save(object);
 	}
 
 	@Override
-	public Set<Speciality> findAll() {
+	public Set<Specialty> findAll() {
 		return super.findAll();
 	}
 
@@ -29,7 +31,7 @@ public class SpecialityMapServiceImpl extends AbstractMapService<Speciality, Lon
 	}
 
 	@Override
-	public void delete(Speciality object) {
+	public void delete(Specialty object) {
 		super.delete(object);
 	}
 }
