@@ -108,4 +108,21 @@ class OwnerControllerTest {
 				.andExpect(view().name("owners/ownerDetails"))
 				.andExpect(model().attribute("owner", hasProperty("id", is(1L)))); //model attribute is owners and has size 2;
 	}
+
+    /**
+     *
+     * When empty search string is given, the search results should give out all the records.
+     */
+	@Test
+	void processFindFormEmptyReturnMany() throws Exception {
+		when(ownerService.findAllByLastNameLike(anyString()))
+				.thenReturn(Arrays.asList(Owner.builder().id(1L).build(),
+						Owner.builder().id(2L).build()));
+
+		mockMvc.perform(get("/owners")
+				.param("lastName",""))
+				.andExpect(status().isOk())
+				.andExpect(view().name("owners/ownersList"))
+				.andExpect(model().attribute("selections", hasSize(2)));;
+	}
 }
