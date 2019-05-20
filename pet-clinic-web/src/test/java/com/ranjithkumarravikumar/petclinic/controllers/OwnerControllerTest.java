@@ -5,6 +5,7 @@ import com.ranjithkumarravikumar.petclinic.services.OwnerService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -18,9 +19,9 @@ import java.util.Set;
 import static org.hamcrest.Matchers.*;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.verifyZeroInteractions;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -51,20 +52,6 @@ class OwnerControllerTest {
 				.build();
 	}
 
-	/**
-	 * Can use this method to test for any alternate mappings
-	 */
-	/*@Test
-	void listOwners() throws Exception{
-		when(ownerService.findAll()).thenReturn(owners);
-
-		//checking http status
-		mockMvc.perform(get("/owners/index"))
-				.andExpect(status().isOk()) //a path exists
-				.andExpect(view().name("owners/index")) //a valid mapping
-				.andExpect(model().attribute("owners", hasSize(2))); //model attribute is owners and has size 2
-	}*/
-
 	@Test
 	void findOwners() throws Exception {
 		mockMvc.perform(get("/owners/find"))
@@ -76,8 +63,10 @@ class OwnerControllerTest {
 		verifyZeroInteractions(ownerService);
 	}
 
-	//when findByLastName gives us many results
-	//findAllByLastNameLike spring Data JPA syntax
+	/**
+	 * when findByLastName gives us many results
+	 * findAllByLastNameLike spring Data JPA syntax
+	 */
 	@Test
 	void processFindFormReturnMany() throws Exception{
 		//get me 2 objects
@@ -90,7 +79,9 @@ class OwnerControllerTest {
 				.andExpect(model().attribute("selections", hasSize(2)));
 	}
 
-	//return only one
+	/**
+	 * return only one
+	 */
 	@Test
 	void processFindFormReturnOne() throws Exception{
 		when(ownerService.findAllByLastNameLike(anyString())).thenReturn(Arrays.asList(Owner.builder().id(1L).build()));
@@ -110,7 +101,6 @@ class OwnerControllerTest {
 	}
 
     /**
-     *
      * When empty search string is given, the search results should give out all the records.
      */
 	@Test
@@ -125,4 +115,52 @@ class OwnerControllerTest {
 				.andExpect(view().name("owners/ownersList"))
 				.andExpect(model().attribute("selections", hasSize(2)));;
 	}
+
+	@Test
+	void initCreationForm() throws Exception {
+		mockMvc.perform(get("/owners/new"))
+				.andExpect(status().isOk())
+				.andExpect(view().name("owners/createOrUpdateOwnerForm"))
+				.andExpect(model().attributeExists("owner"));
+
+		verifyZeroInteractions(ownerService);
+	}
+
+	@Test
+	void processCreationForm() throws Exception {
+		when(ownerService.save(ArgumentMatchers.any())).thenReturn(Owner.builder().id(1l).build());
+
+		mockMvc.perform(post("/owners/new"))
+				.andExpect(status().is3xxRedirection())
+				.andExpect(view().name("redirect:/owners/1"))
+				.andExpect(model().attributeExists("owner"));
+
+		verify(ownerService).save(ArgumentMatchers.any());
+	}
+
+	@Test
+	void initUpdateOwnerForm() throws Exception {
+		when(ownerService.findById(anyLong())).thenReturn(Owner.builder().id(1l).build());
+
+		mockMvc.perform(get("/owners/1/edit"))
+				.andExpect(status().isOk())
+				.andExpect(view().name("owners/createOrUpdateOwnerForm"))
+				.andExpect(model().attributeExists("owner"));
+
+		verifyZeroInteractions(ownerService);
+	}
+
+	@Test
+	void processUpdateOwnerForm() throws Exception {
+		when(ownerService.save(ArgumentMatchers.any())).thenReturn(Owner.builder().id(1l).build());
+
+		mockMvc.perform(post("/owners/1/edit"))
+				.andExpect(status().is3xxRedirection())
+				.andExpect(view().name("redirect:/owners/1"))
+				.andExpect(model().attributeExists("owner"));
+
+		verify(ownerService).save(ArgumentMatchers.any());
+	}
+
+
 }
