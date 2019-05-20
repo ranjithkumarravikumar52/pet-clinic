@@ -20,4 +20,8 @@ public class BaseEntity implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY) //mysql will provide us next sequence number
 	private Long id;
+
+	public boolean isNew(){
+		return this.id == null;
+	}
 }
